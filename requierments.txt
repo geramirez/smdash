@@ -1,0 +1,8 @@
+Django==1.6.5
+TwitterAPI==2.2.0
+argparse==1.2.1
+oauthlib==0.6.3
+regex==2014.06.28
+requests==2.3.0
+requests-oauthlib==0.4.1
+wsgiref==0.1.2

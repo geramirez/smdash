@@ -1,0 +1,15 @@
+<html>
+<head>
+    <title>Load</title>
+</head>
+<body>
+	<form action="/load_facebook_pages/" method="get">
+		Enter Password to Load <br> 
+		<input type="password" name="pwd">
+		<input type="submit" value="Load">
+	</form>
+	{% if done %}
+		Update Finished!
+	{% endif %}
+	</body>
+</html>

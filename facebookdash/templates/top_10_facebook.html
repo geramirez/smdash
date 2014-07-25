@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% load staticfiles %}
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=434617339958488&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<p style='font: Impact; font-size: 20px'>Top 10 Facebook Posts</p>
+<p style: 'font: Impact; font-size: 15px'>For the Last 7 days</p>
+<ol class="rounded-list">
+{% for post in posts %}
+{% autoescape off %}
+ <a href="">{{post}}</a>
+{% endautoescape %}
+{% endfor %}
+</ol>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<h1>Facebook</h1>
+<table style="width:1000px">
+<tr>
+<th>Message</th>
+<th>Facebook Page</th>
+<th>Shares</th>
+<th>Likes</th>
+<th>Comments</th>
+<th>Date</th>
+</tr>
+{% for post in facebookposts %}
+<tr>
+<td>{{post.message}}</td>
+<td>{{post.facebookpage}}</td>
+<td>{{post.shares}}</td>
+<td>{{post.likes}}</td>
+<td>{{post.comments}}</td>
+<td>{{post.created_time}}</td>
+</tr>
+{% endfor %}
+</table>
+<br>
+<h1>Twitter</h1>
+<table style="width:1000px">
+<tr>
+<th>Message</th>
+<th>Twitter Page</th>
+<th>Retweets</th>
+<th>Favorites</th>
+<th>From User</th>
+<th>Date</th>
+</tr>
+{% for tweet in twittertweets %}
+<tr>
+<td>{{tweet.message}}</td>
+<td>{{tweet.twitterpage}}</td>
+<td>{{tweet.retweets}}</td>
+<td>{{tweet.favorites}}</td>
+<td>{{tweet.retweeted_from}}</td>
+<td>{{tweet.created_time}}</td>
+</tr>
+{% endfor %}
+</body>
+</html>

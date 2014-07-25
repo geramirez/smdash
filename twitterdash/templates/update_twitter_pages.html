@@ -1,0 +1,15 @@
+<html>
+<head>
+    <title>Update</title>
+</head>
+<body>
+	<form action="/update_twitter_page_stats/" method="get">
+		Enter Password to Update <br> 
+		<input type="password" name="pwd">
+		<input type="submit" value="update">
+	</form>
+	{% if done %}
+		Update Finished!
+	{% endif %}
+	</body>
+</html>

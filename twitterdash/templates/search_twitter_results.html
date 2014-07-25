@@ -1,0 +1,12 @@
+<p>You searched for: <strong>{{ query }}</strong></p>
+
+{% if posts %}
+    <p>Found top {{ posts|length }} tweet{{ posts|pluralize }}.</p>
+    <ul>
+        {% for post in posts %}
+        <li>{{ post.twitterpage }}  {{ post.retweets  }}  {{ post.message }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No tweets matched your search criteria.</p>
+{% endif %}

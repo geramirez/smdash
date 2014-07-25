@@ -1,0 +1,42 @@
+<p>You searched for: <strong>{{ query }}</strong></p>
+
+{% if stats_page %}
+<table style="width:400px">
+<tr>
+  <th>Pages</th>
+  <th>Posts</th>
+  <th>Likes</th> 
+  <th>Shares</th>
+  <th>Comments</th>
+</tr>
+<tr>
+  <td>{{facebookstats.postid__count}}</td>
+  <td>{{facebookstats.facebookpage__count}}</td>
+  <td>{{facebookstats.likes__sum}}</td> 
+  <td>{{facebookstats.shares__sum}}</td>
+  <td>{{facebookstats.comments__sum}}</td>
+</tr>
+</table>
+
+<br>
+
+<table style="width:450px">
+<tr>
+  <th>Pages</th>
+  <th>Retweeted Tweets</th>
+  <th>Original Tweets</th> 
+  <th>Original Retweets</th>
+  <th>Original Favorites</th>
+</tr>
+<tr>
+  <td>{{twitterstats.twitterpage__count}}</td>
+  <td>{{twitterstats.retweeted_from__count}}</td>
+  <td>{{twitterstats.tweetid__count}}</td> 
+  <td>{{twitterstats.retweets__sum}}</td>
+  <td>{{twitterstats.favorites__sum}}</td>
+</tr>
+</table>
+
+{% else %}
+    <p>No posts matched your search criteria.</p>
+{% endif %}
