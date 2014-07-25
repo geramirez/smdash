@@ -21,7 +21,7 @@ class TweetGetter:
         keyfile.close()
 
         #set up the call dictionary
-        self.calldic =  { 'count':'200',
+        self.calldic =  { 'count':'100',
                           'exclude_replies':'false',
                           'include_rts':'true'}
 
@@ -41,6 +41,11 @@ class TweetGetter:
         self.twitterpage = TwitterPage.objects.get(username=username)
         #add the user name to dict
         self.calldic['screen_name'] = regex.sub("\r|\n","",username)
+
+
+        ###only for speed ups###
+	if TwitterTweet.objects.filter(twitterpage=self.twitterpage).exists():
+            return
 
         keepgoing = True
         while keepgoing:
@@ -78,6 +83,7 @@ class TweetGetter:
             except:
                 print "No more calls left"
                 return "shit"
+	
 
             language = tweet['lang']
             #get date
