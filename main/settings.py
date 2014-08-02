@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'facebookdash',
     'twitterdash',
     'urldash',
+    'mailchimpdash',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -97,5 +98,4 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static").replace('\\','/'),
-    'facebookdash\\static'.replace('\\','/'),
 )

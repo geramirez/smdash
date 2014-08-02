@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<h1>Mailchimp Twitter report</h1>
+<table style="width:1300px">
+<tr>
+<th>Campaign Name</th>
+<th>Sent Tweet Text</th>
+<th>Matched Tweet Text</th>
+<th>Twitter Page</th>
+<th>Retweets</th>
+<th>Favorites</th>
+<th>From User</th>
+<th>Date</th>
+</tr>
+{% for item in matches%}
+<tr>
+<td>{{item.Campaign_id.Campaign_name}}</td>
+<td>{{item.Tweet}}</td>
+<td>{{item.TweetMatch.message}}</td>
+<td>{{item.TweetMatch.twitterpage}}</td>
+<td>{{item.TweetMatch.retweets}}</td>
+<td>{{item.TweetMatch.favorites}}</td>
+<td>{{item.TweetMatch.retweeted_from}}</td>
+<td>{{item.TweetMatch.created_time}}</td>
+{%endfor%}
+</tr>
+</table>
+</body>
+</html>

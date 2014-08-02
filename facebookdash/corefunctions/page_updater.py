@@ -8,21 +8,44 @@ import sys
 import datetime
 from django.utils.timezone import utc
 
-def load_page(pageid):
-	url = "https://graph.facebook.com/" + pageid 
-        try:
-                response = urllib.urlopen(url)
-                main_dic = json.load(response)
-                new_page = FacebookPage(pageid = pageid,
-                                        username = main_dic['username'],
-                                        name = main_dic['name'],
-                                        link = main_dic['link']
-                                        )
-                new_page.save()
-        except:
-                print "this page does not exist"
-                return
+#fill with karges
+def load_page(line):
+
+        line = line.replace('"','')
+        line = line.split("\t")
+        pageid = line[0]        
+        
+	url = "https://graph.facebook.com/" + pageid
 	
+        response = urllib.urlopen(url)
+        main_dic = json.load(response)
+
+        if "error" in main_dic.keys():
+                return
+
+        fields = {}
+        try:
+                fields['city'] = line[3]
+                fields['country'] = line[5]
+                fields['bureau'] = line[6]
+                fields['mission'] = line[7]
+                
+        except:
+                pass
+
+        try:
+                fields['username'] = main_dic['username']
+        except:
+                fields['username'] = "None"
+
+
+        new_page = FacebookPage(pageid = pageid,
+                                name = main_dic['name'],
+                                link = main_dic['link'],
+                                **fields
+                                )
+        new_page.save()
+   
 
 	
 def update_likes_ptat(pageid):
@@ -38,7 +61,7 @@ def update_likes_ptat(pageid):
 	#page likes
 	update_stats = FacebookPublicStat(datepageid = str(datetime.date.today())+str(pageid),
                                         facebookpage=facebookpage,
-					date = datetime.date.today().replace(tzinfo=utc),
+					date = datetime.date.today(),
 					followers = main_dic['likes'],
                                         ptats = main_dic['talking_about_count'])
 	update_stats.save()

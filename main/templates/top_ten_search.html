@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Campaign Search{% endblock %}
+{% block title %}Top Ten Search{% endblock %}
 
 {% block content %}
-    <h1>Campaign Search</h1>
+    <h1>Top Ten Search</h1>
 
     {% if form.errors %}
         <p style="color: red;">
@@ -18,4 +18,5 @@
         {% csrf_token %}
         <input type="submit" value="Submit">
     </form>
+
 {% endblock %}

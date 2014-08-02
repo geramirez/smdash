@@ -10,10 +10,10 @@ def load(request):
 	if 'pwd' in request.GET and 'load' == request.GET['pwd']:
 
 		#open the file and loop through
-		f = open("facebookdash/corefunctions/DOSAccounts.txt","r")
+		f = open("facebookdash/corefunctions/facebook_accounts.txt","r")
 
-		for pageid in f:
-			page_updater.load_page(pageid)
+		for line in f:
+			page_updater.load_page(line)
 
 		f.close()
 		return render(request, 'load_facebook_pages.html',{'done':True})

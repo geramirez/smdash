@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Content Search</title>
-</head>
-<body>
-    <h1>Campaign Search</h1>
+{% extends "base.html" %}
+
+{% block title %}Content Search{% endblock %}
+
+{% block content %}
+    <h1>Content Search</h1>
 
     {% if form.errors %}
         <p style="color: red;">
@@ -19,5 +18,4 @@
         {% csrf_token %}
         <input type="submit" value="Submit">
     </form>
-</body>
-</html>
+{% endblock %}

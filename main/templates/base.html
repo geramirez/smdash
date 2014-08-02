@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>{% block head_title %}{% endblock head_title %}</title>
-  </head>
-  <body>
-    {% block body %}
-    {% block content %}
-    {% endblock content %}
-    {% endblock body %}
-    {% block extra_body %}
-    {% endblock extra_body %}
-  </body>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+{% block head %}
+<head>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+{% endblock %}
+<body>
+    {% block content %}{% endblock %}
+    {% block footer %}<center><p>IIP/Analytics</p></center>{% endblock %}
+</body>
 </html>

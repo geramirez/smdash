@@ -10,8 +10,9 @@ import sys
 import regex
 import datetime
 from django.utils.timezone import utc
+from photohash import average_hash
 
-class FPA:
+class FPA:       
 
 	def __init__(self,token):
 		
@@ -21,10 +22,10 @@ class FPA:
 		
 		self.date = time.time()
 		self.firstday = str(int(time.time()))
-		self.lastday = str(int(self.date - 604800 * 2))
+		self.lastday = str(int(self.date - 604800 / 2))
 		
 		#set limit
-		self.limit = '100'
+		self.limit = '30'
 		
 	def getposts(self,pageid):
 		#initialize the page to be updated
@@ -78,7 +79,10 @@ class FPA:
 
 				#get picture
 				if "picture" in post.keys():
-					picture = post['picture'].encode('utf-8')
+                                        
+					urllib.urlretrieve(post['picture'].encode('utf-8'),"temp_pic.jpg")
+					picture = average_hash("temp_pic.jpg", hash_size = 64)
+					
 				else:
 					picture = None
 				

@@ -1,9 +1,7 @@
 Django==1.6.5
 TwitterAPI==2.2.0
 argparse==1.2.1
-django-admin-tools==0.5.1
 oauthlib==0.6.3
-pytz==2014.4
 regex==2014.06.28
 requests==2.3.0
 requests-oauthlib==0.4.1

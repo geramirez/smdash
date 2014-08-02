@@ -1,6 +1,21 @@
 from django.db import models
 from urldash.models import Url
+from django.db.models import Q, Sum, Count
 
+class FacebookPostManager(models.Manager):
+        def summarize(self,q,daterange):
+                return self\
+                       .filter(created_time__range=[daterange[0], daterange[1]])\
+                       .filter(message__iregex=q)\
+                       .aggregate(Sum('shares'),Sum('comments'),
+                                  Sum('likes'),Count('postid'),
+                                  Count('facebookpage',distinct=True))
+        
+        def get_posts(self,q,daterange):
+                return self\
+                       .filter(created_time__range=[daterange[0], daterange[1]])\
+                       .filter(message__iregex=q)
+        
 class FacebookPage(models.Model):
 	#on api: id
 	pageid = models.BigIntegerField(primary_key = True)
@@ -28,13 +43,16 @@ class FacebookPost(models.Model):
 	likes = models.IntegerField()
 	shares = models.IntegerField()
 	comments = models.IntegerField()
-	picture = models.URLField(null=True)
+	picture = models.CharField(max_length=70,null=True)
 
 	#Many to one
 	facebookpage = models.ForeignKey(FacebookPage)
 	
 	#many to many but text for now
 	urls = models.ManyToManyField(Url,blank=True)
+
+	#managers
+	objects = FacebookPostManager()
 	
 	def __unicode__(self):
 		message = self.message

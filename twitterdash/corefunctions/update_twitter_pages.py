@@ -6,7 +6,7 @@ def load(request):
 	#upate the page posts for each page
 	if 'pwd' in request.GET and 'load' == request.GET['pwd']:
                 #open file and read pages
-                f = open("twitterdash/corefunctions/dosholder.txt",'r')
+                f = open("twitterdash/corefunctions/twitter_accounts.csv",'r')
 
                 #set instance
                 instance = page_updater.PageUpdater()

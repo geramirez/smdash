@@ -5,6 +5,8 @@ from time import sleep, time
 import regex
 import datetime
 from django.utils.timezone import utc
+import urllib
+from photohash import average_hash
 
 class TweetGetter:
 
@@ -29,7 +31,7 @@ class TweetGetter:
         self.setkey(self.keys[self.keynumber])
 
         #create the last date
-        self.lastday = datetime.datetime.fromtimestamp(int(time()) - 604800*2)
+        self.lastday = datetime.datetime.fromtimestamp(int(time()) - 604800/2)
 
     def setkey(self,key):
 
@@ -41,11 +43,6 @@ class TweetGetter:
         self.twitterpage = TwitterPage.objects.get(username=username)
         #add the user name to dict
         self.calldic['screen_name'] = regex.sub("\r|\n","",username)
-
-
-        ###only for speed ups###
-	if TwitterTweet.objects.filter(twitterpage=self.twitterpage).exists():
-            return
 
         keepgoing = True
         while keepgoing:
@@ -72,10 +69,8 @@ class TweetGetter:
             sleep(200)
             self.keynumber += 1
             self.keynumber = self.keynumber % 2
-            print keynumber
             self.setkey(self.keys[self.keynumber])
-            result = self.api.request('statuses/user_timeline',self.calldic)
-        
+       
         for tweet in result.get_iterator():
             #exit if error
             try:
@@ -83,7 +78,6 @@ class TweetGetter:
             except:
                 print "No more calls left"
                 return "shit"
-	
 
             language = tweet['lang']
             #get date
@@ -100,10 +94,12 @@ class TweetGetter:
             #these should be tested
             if tweet['entities'].has_key('media'):
                 media_type = tweet['entities']['media'][0]['type']
-                media_url = tweet['entities']['media'][0]['media_url']
+                urllib.urlretrieve(tweet['entities']['media'][0]['media_url'].encode('utf-8'),"temp_pic.jpg")
+                picture = average_hash("temp_pic.jpg", hash_size = 64)
+                
             else:      
                 media_type = None
-                media_url = None
+                picture = None
 
             if tweet.has_key('retweeted_status'):
                 retweeted_from = tweet['retweeted_status']['user']['screen_name'].encode('utf-8')
@@ -123,7 +119,7 @@ class TweetGetter:
                                          favorites = favorites,
                                          in_reply_to_screen_name = in_reply_to_screen_name,
                                          media_type = media_type,
-                                         media_url = media_url,
+                                         picture = picture,
                                          retweeted_from = retweeted_from,
                                          twitterpage = self.twitterpage,
                                         )
